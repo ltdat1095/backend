@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{{if .flash.error}}
+<div>
+    <h3>{{.flash.error}}</h3>
+</div>
+{{end}}
+
+{{if .flash.success}}
+<div>
+    <h3>{{.flash.success}}</h3>
+</div>
+{{end}}
+
+<form method="post">
+    Email：<input name="Email" type="text" />
+    Password：<input name="Password" type="text" />
+    Age: <input name="Age" type="text" />
+    First Name:<input name="FirstName" type="text" />
+    Last Name:<input name="LastName" type="text" />
+    <input type="submit" value="Submit" />
+</form>

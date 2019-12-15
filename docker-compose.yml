@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  beego:
+    container_name: "beego"
+    build: ./beego/ops
+    volumes:
+      - "./beego/src:/go/src/dlt-pi"
+    ports:
+      - "8080:8081"
+    links:
+      - "mysql"
+    depends_on:
+      - "mysql"
+
+  mysql:
+    container_name: "mysql"
+    image: mysql:8.0.3
+    restart: always
+    ports:
+      - "33060:3306"
+    env_file:
+      - ./db/.env
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
