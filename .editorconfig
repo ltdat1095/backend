@@ -1,0 +1,24 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# Đây là file thiết lập gốc
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Đối với các tập tin Python thì dùng 4 khoảng trắng
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# Với các tập tin JavaScript thì dùng tab, không quy định size
+[{*.js,*.ts,*.vue}]
+indent_style = space
+indent_size = 2
+
+
+# Đối với tập tin package.json hoặc .travis.yml thì dùng 2 khoảng trắng
+[{*.json,*.yml}]
+indent_style = space
+indent_size = 2

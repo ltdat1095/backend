@@ -6,6 +6,7 @@ services:
     build: ./beego/ops
     volumes:
       - "./beego/src:/go/src/dlt-pi"
+      - "./vuejs:/vuejs/"
     ports:
       - "8080:8081"
     links:

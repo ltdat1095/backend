@@ -1,18 +1,4 @@
 <!DOCTYPE html>
-{{if .flash.error}}
-<div>
-    <h3>{{.flash.error}}</h3>
+<div id="app">
+    <login-component />
 </div>
-{{end}}
-
-{{if .flash.success}}
-<div>
-    <h3>{{.flash.success}}</h3>
-</div>
-{{end}}
-
-<form method="post">
-    Email：<input name="Email" type="text" />
-    Password：<input name="Password" type="text" />
-    <input type="submit" value="Submit" />
-</form>

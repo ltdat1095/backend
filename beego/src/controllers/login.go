@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"dlt-pi/logic"
+	"encoding/json"
 
 	"github.com/astaxie/beego"
 )
@@ -10,24 +11,37 @@ type LoginController struct {
 	BaseController
 }
 
-func (c *LoginController) Login() {
+type LoginParams struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (c *LoginController) Get() {
 	c.activeContent("login/login")
-	flash := beego.NewFlash()
+}
+
+func (c *LoginController) Post() {
+	var loginParams LoginParams
+	json.Unmarshal(c.Ctx.Input.RequestBody, &loginParams)
+
+	beego.Debug(loginParams)
+
 	userLogic := logic.UserLogic{}
-
-	email := c.GetString("Email")
-	password := c.GetString("Password")
-
-	if email != "" && password != "" {
-		user, err := userLogic.AuthUser(email, password)
+	if loginParams.Email != "" && loginParams.Password != "" {
+		user, err := userLogic.AuthUser(loginParams.Email, loginParams.Password)
 		if err != nil || user.ID < 1 {
-			flash.Error(err.Error())
-			flash.Store(&c.Controller)
-			return
+			c.Data["json"] = map[string]interface{}{
+				"status":  "400",
+				"message": "Please try again",
+			}
+			c.ServeJSON()
 		}
-		flash.Success("Success logged in")
-		flash.Store(&c.Controller)
-		return
+		mess := "Welcome " + user.Email
+		c.Data["json"] = map[string]interface{}{
+			"status":  "200",
+			"message": mess,
+		}
+		c.ServeJSON()
 	}
 }
 
