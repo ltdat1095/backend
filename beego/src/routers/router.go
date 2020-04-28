@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"dlt-pi/controllers"
+	"backend/controllers"
 
 	"github.com/astaxie/beego"
 )

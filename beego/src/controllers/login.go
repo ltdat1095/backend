@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"dlt-pi/logic"
+	"backend/logic"
 	"encoding/json"
 
 	"github.com/astaxie/beego"

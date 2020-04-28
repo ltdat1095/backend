@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "dlt-pi/routers"
+	_ "backend/routers"
 	"fmt"
 
 	"github.com/astaxie/beego"

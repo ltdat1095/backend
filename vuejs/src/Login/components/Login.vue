@@ -9,7 +9,7 @@
                 <label>Password</label>
                 <input type="password" v-model="password" placeholder="Password">
             </div>
-            <button class="ui button" @click="submit">Submitttt</button>
+            <button class="ui button" @click="submit">Submit</button>
         </div>
     </div>
 </template>

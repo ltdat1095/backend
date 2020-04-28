@@ -3,7 +3,7 @@ var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, '../beego/src/static/js'),
     filename: 'build.js'

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"dlt-pi/logic"
-	"dlt-pi/models"
+	"backend/logic"
+	"backend/models"
 
 	"github.com/astaxie/beego"
 )
