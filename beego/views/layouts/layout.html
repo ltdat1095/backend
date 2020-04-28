@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.Title}}</title>
+    {{ template "layouts/semantic.html" }}
+</head>
+
+<body class="pusher">
+    {{ template "layouts/menu.html" }}
+    <div class="container">
+        {{.LayoutContent}}
+    </div>
+    {{ template "layouts/scripts.html" }}
+</body>
+</html>
