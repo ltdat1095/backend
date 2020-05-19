@@ -1,0 +1,25 @@
+# use the latest ubuntu environment (18.04) available on travis
+dist: bionic
+
+# docker need sudo
+sudo: required
+services:
+    - docker
+
+# Don't email the results of the test.
+notifications:
+    email: false
+
+env:
+    DOCKER_COMPOSE_VERSION: 1.23.2
+
+before_install:
+    - sudo apt-get update
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+    - docker-compose --version
+
+script:
+    - docker-compose up
