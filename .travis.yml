@@ -4,22 +4,24 @@ dist: bionic
 # docker need sudo
 sudo: required
 services:
-    - docker
+  - docker
 
 # Don't email the results of the test.
 notifications:
-    email: false
-
-env:
-    DOCKER_COMPOSE_VERSION: 1.23.2
+  email: false
 
 before_install:
-    - sudo apt-get update
-    - sudo rm /usr/local/bin/docker-compose
-    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-    - chmod +x docker-compose
-    - sudo mv docker-compose /usr/local/bin
-    - docker-compose --version
+  - docker build -t ltdat/backend -f ops/Dockerfile .
 
-script:
-    - docker-compose up
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "backend"
+  env: "Backend-env"
+  bucker_name: "elasticbeanstalk-ap-southeast-1-478286478079"
+  bucker_path: "backend"
+  on:
+    branch : master
+  access_key_id: $AWS_ACCESS
+  secret_access_key:
+    secure: "$AWS_SECRET"
