@@ -10,10 +10,11 @@ import (
 )
 
 func init() {
-	connectString := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8",
+	connectString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8",
 		beego.AppConfig.String("mysqluser"),
 		beego.AppConfig.String("mysqlpass"),
-		beego.AppConfig.String("mysqlurls"),
+		beego.AppConfig.String("mysqlhost"),
+		beego.AppConfig.String("mysqlport"),
 		beego.AppConfig.String("mysqldb"))
 
 	driverName := "mysql"

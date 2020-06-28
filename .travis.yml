@@ -7,30 +7,22 @@ notifications:
   email: false
 
 script:
-  - echo "Script here"
+  - docker build -t $DOCKER_ID/backend:lastest -f ops/Dockerfile .
+
 
 after_success:
-  - docker build -t $DOCKER_ID/backend:lastest -f ops/Dockerfile .
   - echo "$DOCKER_PASS" | docker login -u $DOCKER_ID --password-stdin
   - docker push $DOCKER_ID/backend:lastest 
 
-#   - docker --version  # document the version travis is using
-#   - pip install --user awscli # install aws cli w/o sudo
-#   - export PATH=$PATH:$HOME/.local/bin # put aws in the path
-#   - eval $(aws ecr get-login --region us-east-1) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
-#   - docker build -t ltdat/backend -f ops/Dockerfile .
-#   - docker tag my_example_app:latest [your_ecr_account].dkr.ecr.us-east-1.amazonaws.com/my_example_app:latest
-#   - docker push [your_ecr_account].dkr.ecr.us-east-1.amazonaws.com/my_example_app:latest
-
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "ap-southeast-1"
-#   app: "backend"
-#   env: "Backend-env"
-#   bucker_name: "elasticbeanstalk-ap-southeast-1-478286478079"
-#   bucker_path: "backend"
-#   on:
-#     branch : master
-#   access_key_id: $AWS_ACCESS
-#   secret_access_key:
-#     secure: "$AWS_SECRET"
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "backend"
+  env: "Backend-env"
+  bucker_name: "elasticbeanstalk-ap-southeast-1-478286478079"
+  bucker_path: "backend"
+  on:
+    branch : master
+  access_key_id: $AWS_ACCESS_ID
+  secret_access_key: $AWS_ACCESS_SECRET
