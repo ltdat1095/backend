@@ -21,13 +21,13 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", connectString)
 
-	// dbName := "default"
-	// force := false
-	// verbose := false
-	// err := orm.RunSyncdb(dbName, force, verbose)
-	// if err != nil {
-	// 	beego.Alert("Error in SyncDB", err)
-	// }
+	dbName := "default"
+	force := false
+	verbose := false
+	err := orm.RunSyncdb(dbName, force, verbose)
+	if err != nil {
+		beego.Alert("Error in SyncDB", err)
+	}
 
 	beego.SetStaticPath("/static", "static")
 }

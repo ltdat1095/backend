@@ -8,7 +8,7 @@ services:
       dockerfile: ./ops/Dockerfile
     ports:
       - "8081:8080"
-    # restart: always
+    restart: always
     networks:
       - "backend-network"
 
@@ -16,8 +16,6 @@ services:
     container_name: "backend-mysql"
     image: mysql
     restart: always
-    ports:
-      - "33066:3306"
     env_file:
       - ./ops/db/.env
     networks:
