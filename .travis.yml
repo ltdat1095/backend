@@ -7,7 +7,7 @@ notifications:
   email: false
 
 script:
-  - docker build -t $DOCKER_ID/backend:latest -f ops/Dockerfile .
+  - docker build -t $DOCKER_ID/backend:latest -f ops/production/Dockerfile .
 
 after_success:
   - echo "$DOCKER_PASS" | docker login -u $DOCKER_ID --password-stdin

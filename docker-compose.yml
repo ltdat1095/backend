@@ -5,7 +5,7 @@ services:
     container_name: "backend-beego"
     build:
       context: .
-      dockerfile: ./ops/Dockerfile
+      dockerfile: ./ops/development/Dockerfile
     ports:
       - "8081:8080"
     restart: always
