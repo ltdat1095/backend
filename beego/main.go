@@ -10,25 +10,24 @@ import (
 )
 
 func init() {
-	connectString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8",
-		beego.AppConfig.String("mysqluser"),
-		beego.AppConfig.String("mysqlpass"),
-		beego.AppConfig.String("mysqlhost"),
-		beego.AppConfig.String("mysqlport"),
-		beego.AppConfig.String("mysqldb"))
+	mysqluser := beego.AppConfig.String("mysqluser")
+	mysqlpass := beego.AppConfig.String("mysqlpass")
+	mysqlhost := beego.AppConfig.String("mysqlhost")
+	mysqlport, _ := beego.AppConfig.Int("mysqlport")
+	mysqldb := beego.AppConfig.String("mysqldb")
 
-	driverName := "mysql"
-	dbName := "default"
-	force := false
-	verbose := false
+	connectString := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8",
+		mysqluser, mysqlpass, mysqlhost, mysqlport, mysqldb)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", connectString)
 
-	orm.RegisterDriver(driverName, orm.DRMySQL)
-	orm.RegisterDataBase("default", driverName, connectString)
-
-	err := orm.RunSyncdb(dbName, force, verbose)
-	if err != nil {
-		beego.Alert("Error in SyncDB", err)
-	}
+	// dbName := "default"
+	// force := false
+	// verbose := false
+	// err := orm.RunSyncdb(dbName, force, verbose)
+	// if err != nil {
+	// 	beego.Alert("Error in SyncDB", err)
+	// }
 
 	beego.SetStaticPath("/static", "static")
 }

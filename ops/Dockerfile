@@ -20,4 +20,5 @@ RUN chmod +x /usr/bin/wait-for.sh
 WORKDIR /go/src/backend
 RUN go mod vendor
 RUN go build main.go
-CMD ./backend
+
+CMD /usr/bin/wait-for.sh backend-mysql:3306 -- ./main

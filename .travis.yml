@@ -9,7 +9,6 @@ notifications:
 script:
   - docker build -t $DOCKER_ID/backend:latest -f ops/Dockerfile .
 
-
 after_success:
   - echo "$DOCKER_PASS" | docker login -u $DOCKER_ID --password-stdin
   - docker push $DOCKER_ID/backend:latest 
