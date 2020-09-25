@@ -17,12 +17,11 @@ deploy:
   edge: true
   provider: elasticbeanstalk
   region: ap-southeast-1
-  app: backend
-  env: Backend-env
-  bucker_name: elasticbeanstalk-ap-southeast-1-836998926954
+  app: $AWS_EB_APP
+  env: $AWS_EB_ENV
+  bucker_name: $AWS_BUCKER_NAME
   bucker_path: backend
   on:
     branch : master
   access_key_id: $AWS_ACCESS_ID
-  secret_access_key:
-    secure: $AWS_ACCESS_SECRET
+  secret_access_key: $AWS_ACCESS_SECRET

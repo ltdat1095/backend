@@ -13,6 +13,7 @@ COPY beego /go/src/backend
 COPY --from=0 /webpack/dist/build.js /go/src/backend/static/js/build.js
 
 WORKDIR /go/src/backend
+ENV BEEGO_RUNMODE=prod
 RUN go mod vendor
 RUN go build main.go
 

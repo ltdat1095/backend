@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -10,13 +11,14 @@ import (
 )
 
 func init() {
-	mysqluser := beego.AppConfig.String("mysqluser")
-	mysqlpass := beego.AppConfig.String("mysqlpass")
-	mysqlhost := beego.AppConfig.String("mysqlhost")
-	mysqlport, _ := beego.AppConfig.Int("mysqlport")
-	mysqldb := beego.AppConfig.String("mysqldb")
+	mysqlhost := os.Getenv("RDS_HOSTNAME")
+	mysqlport := os.Getenv("RDS_PORT")
+	mysqluser := os.Getenv("RDS_USERNAME")
+	mysqlpass := os.Getenv("RDS_PASSWORD")
+	mysqldb := os.Getenv("RDS_DB_NAME")
 
-	connectString := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8",
+	connectFormat := "%s:%s@tcp(%s:%s)/%s?charset=utf8"
+	connectString := fmt.Sprintf(connectFormat,
 		mysqluser, mysqlpass, mysqlhost, mysqlport, mysqldb)
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", connectString)

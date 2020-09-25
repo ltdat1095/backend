@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./ops/development/Dockerfile
+    env_file:
+      - ./ops/development/beego.env
     ports:
       - "8081:8080"
     restart: always
@@ -17,7 +19,7 @@ services:
     image: mysql
     restart: always
     env_file:
-      - ./ops/db/.env
+      - ./ops/development/db.env
     networks:
       - "backend-network"
 

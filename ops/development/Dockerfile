@@ -18,6 +18,7 @@ COPY ops/bin/wait-for.sh /usr/bin/wait-for.sh
 RUN chmod +x /usr/bin/wait-for.sh
 
 WORKDIR /go/src/backend
+ENV BEEGO_RUNMODE=dev
 RUN go mod vendor
 RUN go build main.go
 
