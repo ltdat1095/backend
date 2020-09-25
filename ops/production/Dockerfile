@@ -9,8 +9,6 @@ RUN npm run build
 # Bee-go
 FROM golang:1.13
 
-RUN apt-get -q update && apt-get -qy install netcat
-
 COPY beego /go/src/backend
 COPY --from=0 /webpack/dist/build.js /go/src/backend/static/js/build.js
 
@@ -18,4 +16,6 @@ WORKDIR /go/src/backend
 RUN go mod vendor
 RUN go build main.go
 
-CMD ./main
+EXPOSE 8080
+
+ENTRYPOINT ./main

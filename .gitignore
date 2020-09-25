@@ -1,5 +1,9 @@
 vuejs/node_modules
 beego/vendor/
+
+# VS code
+.vscode/
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
