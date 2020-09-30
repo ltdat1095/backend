@@ -11,6 +11,10 @@ services:
     ports:
       - "8081:8080"
     restart: always
+    volumes:
+      - type: volume
+        source: beego
+        target: /go/src/backend
     networks:
       - "backend-network"
 
@@ -34,3 +38,7 @@ services:
 networks:
   backend-network:
     driver: "bridge"
+
+volumes:
+  beego:
+    driver: local
