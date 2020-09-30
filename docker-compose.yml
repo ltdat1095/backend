@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./ops/development/Dockerfile
+    volumes:
+      - ./beego:/go/src/backend
     env_file:
       - ./ops/development/beego.env
     ports:

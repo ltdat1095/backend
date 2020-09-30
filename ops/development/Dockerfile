@@ -1,25 +1,17 @@
-# Vuejs
-FROM node:14.0.0-alpine3.10
-
-COPY webpack /webpack
-WORKDIR /webpack
-RUN npm install
-RUN npm run build
-
 # Bee-go
 FROM golang:1.13
 
-RUN apt-get -q update && apt-get -qy install netcat
-
 COPY beego /go/src/backend
-COPY --from=0 /webpack/dist/build.js /go/src/backend/static/js/build.js
+COPY webpack/dist/build.js /go/src/backend/static/js/build.js
 
+# Wait for mysql initialization
+RUN apt-get -q update && apt-get -qy install netcat
 COPY ops/bin/wait-for.sh /usr/bin/wait-for.sh
 RUN chmod +x /usr/bin/wait-for.sh
 
-WORKDIR /go/src/backend
-ENV BEEGO_RUNMODE=dev
-RUN go mod vendor
-RUN go build main.go
+# Install bee client
+RUN GO111MODULE=on go get github.com/beego/bee
+RUN export PATH=$PATH:$GOPATH/bin
 
-CMD /usr/bin/wait-for.sh backend-mysql:3306 -- ./main
+WORKDIR /go/src/backend
+CMD /usr/bin/wait-for.sh backend-mysql:3306 -- bee run

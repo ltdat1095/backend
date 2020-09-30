@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/astaxie/beego"
 	"github.com/ltdat/backend/models"
 )
 
@@ -31,26 +30,35 @@ func (u *UserLogic) AuthUser(email string, password string) (*models.User, error
 	return user, nil
 }
 
-func (u *UserLogic) NewUser(user models.User) (*models.User, error) {
-	if models.Users().Filter("email", user.Email).Exist() {
-		return nil, errors.New("User already registered")
+type SignUpParams struct {
+	Email     string `json:"email"`
+	Password  string `json:"password"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Age       int    `json:"age"`
+}
+
+func (u *UserLogic) NewUser(params SignUpParams) error {
+	if models.Users().Filter("email", params.Email).Exist() {
+		return errors.New("User already registered")
 	}
 
-	var (
-		hashedPass string
-		err        error
-	)
-
-	if hashedPass, err = HashPass(user.Password); err != nil {
-		return nil, errors.New("Failed to hash password")
+	hashedPass, err := HashPass(params.Password)
+	if err != nil {
+		return errors.New("Failed to hash password")
 	}
-	user.Password = hashedPass
 
+	user := models.User{
+		Email:     params.Email,
+		Password:  hashedPass,
+		Age:       params.Age,
+		FirstName: params.FirstName,
+		LastName:  params.LastName,
+	}
 	err = user.Insert()
 	if err != nil {
-		beego.Debug(err)
-		return nil, errors.New("Failed to insert new user")
+		return errors.New("Failed to insert new user")
 	}
 
-	return &user, err
+	return nil
 }

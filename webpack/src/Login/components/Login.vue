@@ -1,17 +1,17 @@
 <template>
-    <div class="ui container">
-        <div class="ui form">
-            <div class="field">
-                <label>Email</label>
-                <input type="text" v-model="email" placeholder="Email">
-            </div>
-            <div class="field">
-                <label>Password</label>
-                <input type="password" v-model="password" placeholder="Password">
-            </div>
-            <button class="ui button" @click="submit">Submit</button>
-        </div>
+  <div class="ui container">
+    <div class="ui form">
+      <div class="field">
+        <label>Email</label>
+        <input type="text" v-model="email" placeholder="Email">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" v-model="password" placeholder="Password">
+      </div>
+      <button class="ui button" @click="submit">Submit</button>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,7 +27,7 @@ export default class LoginComponent extends Vue {
 
   async submit() {
     try {
-      const { data } = await axios.post('/login', {
+      const { data } = await axios.post('/api/login', {
         email: this.email,
         password: this.password,
       })
@@ -42,6 +42,3 @@ export default class LoginComponent extends Vue {
   }
 }
 </script>
-
-<style>
-</style>
