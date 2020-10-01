@@ -34,7 +34,7 @@ export default class LoginComponent extends Vue {
       if (data.status != 200) {
         alert(data.message)
       } else {
-        alert(data.message)
+        window.location.href = '/';
       }
     } catch (error) {
       console.log(error)

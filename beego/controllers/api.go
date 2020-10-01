@@ -33,6 +33,8 @@ func (c *ApiController) Login() {
 		return
 	}
 
+	session := c.StartSession()
+	session.Set("UserID", user.Id)
 	c.responseSucceed()
 	return
 }

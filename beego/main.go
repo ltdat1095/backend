@@ -6,11 +6,17 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/session"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/ltdat/backend/routers"
 )
 
 func init() {
+	// Beego config
+	beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.SetStaticPath("/static", "static")
+
+	// Connect database
 	mysqlhost := os.Getenv("RDS_HOSTNAME")
 	mysqlport := os.Getenv("RDS_PORT")
 	mysqluser := os.Getenv("RDS_USERNAME")
@@ -30,10 +36,15 @@ func init() {
 	if err != nil {
 		beego.Alert("Error in SyncDB", err)
 	}
-
-	beego.SetStaticPath("/static", "static")
 }
 
 func main() {
+	sessionconf := &session.ManagerConfig{
+		CookieName: "beegoSession",
+		Gclifetime: 3600,
+	}
+	beego.GlobalSessions, _ = session.NewManager("memory", sessionconf)
+	go beego.GlobalSessions.GC()
+
 	beego.Run()
 }

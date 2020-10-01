@@ -10,7 +10,14 @@ const (
 
 type BaseController struct {
 	beego.Controller
-	IsLogin bool
+}
+
+func (c *BaseController) Prepare() {
+	session := c.StartSession()
+	userID := session.Get("UserID")
+	if userID == nil {
+		c.Redirect("/login", 302)
+	}
 }
 
 // func (c *BaseController) Auth() {
