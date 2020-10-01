@@ -13,7 +13,7 @@ func init() {
 
 // User modal Struct
 type User struct {
-	ID            int
+	Id            int
 	Email         string `orm:"size(64);unique" valid:"Required;Email"`
 	Password      string `orm:"size(64);valid:"Required;MinSize(6)"`
 	Age           int
