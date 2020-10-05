@@ -1,9 +1,14 @@
 package controllers
 
+import "github.com/astaxie/beego"
+
 type LoginController struct {
-	BaseController
+	beego.Controller
 }
 
 func (c *LoginController) Get() {
-	c.activeContent("login/login")
+	c.Layout = "layouts/layout.html"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["Scripts"] = "layouts/scripts.html"
+	c.TplName = "login/login.html"
 }
